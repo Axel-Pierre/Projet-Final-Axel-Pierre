@@ -1,0 +1,18 @@
+
+.navbar
+{
+    width:100% !important;
+   
+   
+}
+#root
+{
+    width:100% !important;
+}
+.card_id
+{
+    display:flex;
+    
+    justify-content: center;
+    height:100% !important;
+}

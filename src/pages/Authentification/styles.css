@@ -1,0 +1,38 @@
+*{
+    margin:0 ;
+    padding:0 ;
+    
+}
+
+.Control{
+    
+    display:flex;
+    justify-content: center !important;
+    width:30%;
+    flex-direction: column;
+    height:100%;
+  align-self: center;
+
+}
+html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+}
+
+body {
+   margin: 0px;
+   min-height: 100%;
+   width: 100%;
+   display:flex;
+   justify-content: center;
+}
+#root
+{
+    width:30%;
+}
+.login_interface{
+    display:flex;
+    flex-direction: column;
+    height:100%;
+}

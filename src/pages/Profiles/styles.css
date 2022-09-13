@@ -1,0 +1,35 @@
+
+.size
+{
+    width: 20%;
+    height:100%;
+}
+.filter_search{
+    display:flex;
+    
+    width:100%;
+ 
+}
+.search_text{
+    font-size: 20px;
+    align-self: flex-ends;
+    width: 16%;
+    height:100%;
+    
+}
+.search_bar{
+   
+    width: 50%;
+    justify-content: center;
+}
+.search_bar > input{
+    width: 20%;
+    
+}
+.filter{
+    width:50%;
+    height:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
