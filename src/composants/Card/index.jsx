@@ -1,17 +1,21 @@
-import Button from 'react-bootstrap/Button';
+
 import Card from 'react-bootstrap/Card';
 
-function WelcomeCard() {
+function WelcomeCard(props) {
+  const {name,lastname,img,phone,anni,city,country,category} = props
+  
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img width="100%" variant="top" src="holder.js/100px180" />
+      <Card.Img width="100%" variant="top" src={img}/>
       <Card.Body>
-        <Card.Title>Card Title</Card.Title>
+        <Card.Title>{name} {lastname}</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+         <p> numero : {phone}</p>
+         <p> Anniversaire : {anni}</p>
+         <p>ville : {city}</p>
+         <p> pays : {country}</p>
+         {category !== "" ? <p> Categorie : {category}</p> : ""}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
       </Card.Body>
     </Card>
   );

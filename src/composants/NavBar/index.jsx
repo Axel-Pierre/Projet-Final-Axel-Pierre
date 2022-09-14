@@ -12,14 +12,19 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link,BrowserRouter } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {useSelector,useDispatch} from 'react-redux';
+import {user_login} from '../../utils/selector'
+import {loginCheckout} from '../../features/login';
+
 const pages = ['Liste', 'Modifer son Profil', 'Admin'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -34,7 +39,13 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+ const checkLogout = (setting) =>{
+  if(setting === 'Logout'){
+    dispatch(loginCheckout());
+    navigate('/');
+  }
+ }
+ 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -137,7 +148,7 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick= {function(event){handleOpenUserMenu(event)}} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
@@ -158,7 +169,8 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              
+                <MenuItem key={setting} onClick={function(event){handleCloseUserMenu(event);checkLogout(setting)}}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
