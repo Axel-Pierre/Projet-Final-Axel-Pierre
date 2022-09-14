@@ -5,11 +5,13 @@ import { data_axios } from "../../services/axios";
 import { useEffect, useState,useRef } from "react";
 import Form from "react-bootstrap/Form";
 
+
 export default function Profiles() {
   const [filter, setFilter] = useState();
   const [profiles, setProfiles] = useState();
   const [category,setCategory] = useState();
   const [setting,setSettings] = useState(); 
+  const [filterLocation,setFilterLocation] = useState();
   let url = "http://localhost:7000/api/collaborateurs";
   const token = localStorage.getItem("token");
   const input = useRef()
@@ -21,22 +23,19 @@ export default function Profiles() {
     
     
   }, []);
-  /*
+  
   function filters_name(name){
         switch(name){
             case 'Names':
+                setFilterLocation('Names');
                 break;
             case 'Villes':
-            console.log(profiles);
-            let filter_data = profiles.filter((profile) => profile.city === input.current.value);
-            console.log(filter_data);
-           
+                setFilterLocation('Villes');
+                break;
            // setFilter(filter_data);
-            break;
-
         }
-  }*/
-  
+  }
+
   function filters_category(name) {
     switch(name){
         case 'Client':{
@@ -72,8 +71,14 @@ export default function Profiles() {
   function  Search() {
     if(input.current.value !== "" && setting === undefined){
         console.log(input.current.value);
-
-     filter_search  = profiles.filter(profile =>{ return profile.firstname.toLowerCase().includes(input.current.value)});
+       console.log(filterLocation);
+       if(filterLocation === 'Villes'){
+        console.log(profiles);
+        filter_search  = profiles.filter(profile =>{ return profile.city.toLowerCase().includes(input.current.value)});
+       }else{
+        filter_search  = profiles.filter(profile =>{ return profile.firstname.toLowerCase().includes(input.current.value)});
+       }
+     
      setFilter(filter_search);
     
     }
@@ -84,12 +89,20 @@ export default function Profiles() {
          setFilter(category);
          filter_category = category.filter(profile => {return profile.firstname.toLowerCase().includes(input.current.value)});
          setFilter(filter_category);
+         if(filterLocation === 'Villes'){
+            filter_search  = category.filter(profile =>{ return profile.city.toLowerCase().includes(input.current.value)});
+           setFilter(filter_search);
+         }
             break;
         case 'Client':
              //filter_category = profiles.filter(profile => {return profile.service.includes('Technique')});
              setFilter(category);
              filter_category = category.filter(profile => {return profile.firstname.toLowerCase().includes(input.current.value)});
              setFilter(filter_category);
+             if(filterLocation === 'Villes'){
+                filter_search  = category.filter(profile =>{ return profile.city.toLowerCase().includes(input.current.value)});
+               setFilter(filter_search);
+             }
                 break;   
          case 'Marketing':
                 
@@ -97,6 +110,10 @@ export default function Profiles() {
              setFilter(category);
              filter_category = category.filter(profile => {return profile.firstname.toLowerCase().includes(input.current.value)});
              setFilter(filter_category);
+             if(filterLocation === 'Villes'){
+                filter_search  = category.filter(profile =>{ return profile.city.toLowerCase().includes(input.current.value)});
+               setFilter(filter_search);
+             }
                     break;          
 
     }
