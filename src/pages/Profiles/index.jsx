@@ -1,11 +1,12 @@
 import ResponsiveAppBar from "../../composants/NavBar";
 import Card from "../../composants/Card";
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 import { data_axios } from "../../services/axios";
 import { useEffect, useState,useRef } from "react";
 import Form from "react-bootstrap/Form";
-
-
+import {useDispatch} from 'react-redux'
+import {home_token} from '../../features/home'
 export default function Profiles() {
   const [filter, setFilter] = useState();
   const [profiles, setProfiles] = useState();
@@ -14,7 +15,17 @@ export default function Profiles() {
   const [filterLocation,setFilterLocation] = useState();
   let url = "http://localhost:7000/api/collaborateurs";
   const token = localStorage.getItem("token");
-  const input = useRef()
+  const input = useRef();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    if(token === null){
+        navigate('/')
+     }else{
+        dispatch(home_token(token))
+        
+     }
+},[])
   useEffect(() => {
     data_axios(url, token).then((res) =>{
         setProfiles(res);
@@ -70,10 +81,9 @@ export default function Profiles() {
 
   function  Search() {
     if(input.current.value !== "" && setting === undefined){
-        console.log(input.current.value);
-       console.log(filterLocation);
+        
        if(filterLocation === 'Villes'){
-        console.log(profiles);
+        
         filter_search  = profiles.filter(profile =>{ return profile.city.toLowerCase().includes(input.current.value)});
        }else{
         filter_search  = profiles.filter(profile =>{ return profile.firstname.toLowerCase().includes(input.current.value)});
@@ -137,12 +147,12 @@ export default function Profiles() {
           <div className="filter">
             <p className="search_text "> Rechercher par : </p>
 
-            <Form.Select className="size" aria-label="Default select example">
+            <Form.Select onChange={Search} className="size" aria-label="Default select example">
               <option  onClick={ () => filters_name("Names")} value="1">Noms</option>
               <option  onClick={ () => filters_name("Villes")}value="2">Ville</option>
             </Form.Select>
-            <Form.Select className="size" aria-label="Default select example" >
-                <option selected>Category</option>
+            <Form.Select onChange={Search} className="size" aria-label="Default select example" >
+                <option selected>-- Aucun --</option>
               <option onClick={ () => filters_category("Client")} value="1">
                 Client
               </option>

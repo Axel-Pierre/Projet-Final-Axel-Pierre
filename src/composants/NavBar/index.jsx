@@ -17,10 +17,12 @@ import {useSelector,useDispatch} from 'react-redux';
 import {user_login} from '../../utils/selector'
 import {loginCheckout} from '../../features/login';
 
-const pages = ['Liste', 'Modifer son Profil', 'Admin'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Liste', 'Admin'];
+const settings = ['Modifier son profil', 'Deconnexion'];
 
 const ResponsiveAppBar = () => {
+  const img = localStorage.getItem('img');
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const dispatch = useDispatch();
@@ -40,9 +42,12 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
  const checkLogout = (setting) =>{
-  if(setting === 'Logout'){
+  if(setting === 'Deconnexion'){
     dispatch(loginCheckout());
     navigate('/');
+  }
+  if(setting === 'Modifier son profil'){
+    navigate('/profile');
   }
  }
  
@@ -101,7 +106,7 @@ const ResponsiveAppBar = () => {
             >
               
               {pages.map((page) => (
-                 <Link to={page ==="Liste"? "/profiles" : page === 'Modifer son Profil' ? '/profile' :""  }> 
+                 <Link to={page ==="Liste"? "/profiles" :""  }> 
                 <MenuItem key={page}onClick={handleCloseNavMenu}>
                 
                   <Typography textAlign="center">{page}</Typography>
@@ -149,7 +154,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick= {function(event){handleOpenUserMenu(event)}} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="user" src={img}/>
               </IconButton>
             </Tooltip>
             <Menu

@@ -27,7 +27,6 @@ useEffect(()=>{
 useEffect(()=>{
     data_axios(url,token).then(
         res =>{
-            console.log(res);
             setProfiles(res)
             
         }
@@ -37,12 +36,12 @@ useEffect(()=>{
 const new_random = () =>{
     data_axios(url,token).then(
         res =>{
-            console.log(res);
+          
             setProfiles(res)
             
         })
 }
-     console.log(profile)
+     
     return(
 
         <div>
