@@ -39,9 +39,11 @@ export default function Profiles() {
         switch(name){
             case 'Names':
                 setFilterLocation('Names');
+               
                 break;
             case 'Villes':
                 setFilterLocation('Villes');
+                
                 break;
            // setFilter(filter_data);
         }
@@ -53,7 +55,7 @@ export default function Profiles() {
             let filter_data = profiles.filter((profile) => profile.service == name);
             setSettings(name);
             setCategory(filter_data);
-            
+            setFilter(filter_data);
            
             break;
         }
@@ -61,7 +63,7 @@ export default function Profiles() {
             let filter_data = profiles.filter((profile) => profile.service == name);
             setSettings(name);
             setCategory(filter_data);
-           
+            setFilter(filter_data);
             
             break;
         }
@@ -69,6 +71,7 @@ export default function Profiles() {
             let filter_data = profiles.filter((profile) => profile.service == name);
             setSettings(name)
             setCategory(filter_data);
+            setFilter(filter_data);
             
          
             break;
@@ -85,6 +88,7 @@ export default function Profiles() {
        if(filterLocation === 'Villes'){
         
         filter_search  = profiles.filter(profile =>{ return profile.city.toLowerCase().includes(input.current.value)});
+        
        }else{
         filter_search  = profiles.filter(profile =>{ return profile.firstname.toLowerCase().includes(input.current.value)});
        }
