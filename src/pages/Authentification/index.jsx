@@ -10,23 +10,19 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ResponsiveAppBar from "../../composants/NavBar";
 import Button from "@mui/material/Button";
 import "./styles.css";
-import { login_axios} from '../../services/axios';
+import { login_axios } from "../../services/axios";
 import { user_login } from "../../utils/selector";
 import { loginSuccess } from "../../features/login";
-import { useStore, useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
-//useEffect();
+
 export default function Authentification() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const user_connexion = useSelector(user_login);
 
- /* if (token !== null) {
-    dispatch(loginSuccess(token));
-    
-  }*/
   const { status } = user_connexion;
 
   if (status === "resolved") {
@@ -38,11 +34,12 @@ export default function Authentification() {
     password: "",
     showPassword: false,
   });
+  React.useEffect(() => {
+    if (user_connexion.token !== "" || token !== null) {
+      navigate("/home");
+    }
+  });
 
-  if (user_connexion.token !== "") {
-    navigate("/home");
-  }
- 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -57,17 +54,13 @@ export default function Authentification() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const onClickLog = (username,password) =>{
-    
-    login_axios(username,password).then(
-      (res)=>{
-        if(res !== null){
-          navigate("/home");
-        }
+  const onClickLog = (username, password) => {
+    login_axios(username, password).then((res) => {
+      if (res !== null) {
+        navigate("/home");
       }
-      
-    );
-  }
+    });
+  };
   return (
     <div className="login_interface">
       <div className="bar">
@@ -75,11 +68,9 @@ export default function Authentification() {
       </div>
       <div className="Control">
         <TextField
-          // html input attribute
           name="email"
           type="email"
           placeholder="johndoe@email.com"
-          // pass down to FormLabel as children
           label="Email"
           onChange={handleChange("email")}
           value={values.email}
@@ -110,7 +101,7 @@ export default function Authentification() {
         </FormControl>
 
         <Button
-          onClick={() => onClickLog(values.email,values.password)}
+          onClick={() => onClickLog(values.email, values.password)}
           className="btn_log"
           variant="contained"
         >

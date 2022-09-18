@@ -1,5 +1,9 @@
 import axios from "axios";
 import { setUserData } from "../services/localStorage";
+/**
+ *
+ * appel d'axios pour la connexion d'un utilisateur
+ */
 
 export async function login_axios(user, password) {
   await axios
@@ -8,7 +12,7 @@ export async function login_axios(user, password) {
       password: password,
     })
     .then((response) => {
-      console.log(response);
+     
       setUserData(
         response.data.token,
         response.data.user.id,
@@ -19,16 +23,21 @@ export async function login_axios(user, password) {
       return response.data.token;
     })
     .catch(function (error) {
-      console.log(error);
+
     });
 }
-
+/**
+ *appel d'axios pour recuperer les données des utilisateurs
+ **/
 export async function data_axios(url, token) {
   let config = { headers: { Authorization: `Bearer ${token}` } };
 
   const { data } = await axios.get(url, config);
   return data;
 }
+/**
+ * appel d'axios pour supprimer un utilisateur
+ * */
 export async function delete_user_axios(id) {
   let token = localStorage.getItem("token");
   let config = {
@@ -37,46 +46,55 @@ export async function delete_user_axios(id) {
       "Content-Type": "application/json",
     },
   };
- const {data,status}  = await axios.delete(`http://localhost:7000/api/collaborateurs/${id}`,config);
- return {status, data};
+  const { data, status } = await axios.delete(
+    `http://localhost:7000/api/collaborateurs/${id}`,
+    config
+  );
+  return { status, data };
 }
-export async function create_user_axios(content){
-    let new_gender = "";
-    switch (content.civility) {
-      case "Mme": {
-        new_gender = "female";
-        break;
-      }
-      case "M": {
-        new_gender = "male";
-        break;
-      }
+/**
+ * appel d'axios pour creer un utilisateur
+ * */
+export async function create_user_axios(content) {
+  let new_gender = "";
+  switch (content.civility) {
+    case "Mme": {
+      new_gender = "female";
+      break;
     }
-    let token = localStorage.getItem('token');
-    let url = 'http://localhost:7000/api/collaborateurs';
-    const res = await axios({
-      method: "post",
-      url: url,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-  
-      data: {
-        gender: new_gender,
-        firstname: content.name,
-        lastname: content.lastname,
-        email: content.email,
-        password: content.password, // Facultatif : Uniquement si le mot de passe doit être changé
-        phone: content.telephone,
-        birthdate: content.birthday,
-        city: content.city,
-        country: content.country,
-        service: content.category,
-        photo: content.photo,
-      },
-    });
+    case "M": {
+      new_gender = "male";
+      break;
+    }
+  }
+  let token = localStorage.getItem("token");
+  let url = "http://localhost:7000/api/collaborateurs";
+  const res = await axios({
+    method: "post",
+    url: url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+
+    data: {
+      gender: new_gender,
+      firstname: content.name,
+      lastname: content.lastname,
+      email: content.email,
+      password: content.password, // Facultatif : Uniquement si le mot de passe doit être changé
+      phone: content.telephone,
+      birthdate: content.birthday,
+      city: content.city,
+      country: content.country,
+      service: content.category,
+      photo: content.photo,
+    },
+  });
 }
+/**
+ * appel d'axios pour modifier un utilisateur
+ * */
 export async function modif_data_axios(url, token, content) {
   let new_gender = "";
   switch (content.civility) {
@@ -111,5 +129,4 @@ export async function modif_data_axios(url, token, content) {
       photo: content.photo,
     },
   });
-
 }

@@ -31,10 +31,10 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+ 
   // Gestion de l'affichage de la navigation admin
-  if (isAdmin === "false") {
-     pages.splice(1, 1);
+  if (isAdmin === "false" || isAdmin === "undefined" || isAdmin === null) {
+    pages.splice(1, 1);
   } else {
     pages.splice(1, 1, "Creer un utilisateur");
   }

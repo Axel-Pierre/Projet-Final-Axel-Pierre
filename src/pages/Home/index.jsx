@@ -2,9 +2,7 @@ import ResponsiveAppBar from "../../composants/NavBar";
 import "./styles.css";
 import { data_axios } from "../../services/axios";
 import CardWelcome from "../../composants/Card";
-import { useSelector, useStore } from "react-redux";
-import { home_token, home_profile_info } from "../../features/home";
-import { user_home } from "../../utils/selector";
+import { home_token} from "../../features/home";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -41,13 +39,13 @@ export default function Home() {
       <div className="navbar">
         <ResponsiveAppBar />
       </div>
-      <br/> <br/> <br/> <br/>
+      <br /> <br /> <br /> <br />
       <div>
         <h1> Bienvenue {username}</h1>
       </div>
-      <br/> <br/>
+      <br /> <br />
       <h2> Avez vous dit bonjour à : </h2>
-      <br/>
+      <br />
       {profile && (
         <div className="card_id">
           <CardWelcome
@@ -62,7 +60,11 @@ export default function Home() {
           />
         </div>
       )}
-    <div><Button  className='btn_random' onClick={new_random} variant="primary">Decouvrir une nouvelle personne</Button></div>
+      <div>
+        <Button className="btn_random" onClick={new_random} variant="primary">
+          Decouvrir une nouvelle personne
+        </Button>
+      </div>
     </div>
   );
 }

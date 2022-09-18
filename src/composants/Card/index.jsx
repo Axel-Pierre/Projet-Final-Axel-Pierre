@@ -12,7 +12,7 @@ const navigate = useNavigate();
 const dispatch = useDispatch();
 let isAdmin = localStorage.getItem('admin');
   function modif_other_user(id){
-    dispatch(editAction(id))
+    dispatch(editAction(id));
     navigate(`/profile`)
   }
 
@@ -24,7 +24,7 @@ let isAdmin = localStorage.getItem('admin');
         dispatch(profilesDelete(id))  
       }
     }catch(err){
-      console.log(err);
+
     }
    
   }

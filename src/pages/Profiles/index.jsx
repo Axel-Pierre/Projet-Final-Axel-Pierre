@@ -9,21 +9,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { home_token } from "../../features/home";
 import { user_profiles } from "../../utils/selector";
 import { profilesCreate } from "../../features/profiles";
-import { useStore } from "react-redux";
 export default function Profiles() {
+  // les states qui vont enregistrés des données par rapport aux utilisateurs
   const [filter, setFilter] = useState();
   const [profiles, setProfiles] = useState();
   const [category, setCategory] = useState();
   const [setting, setSettings] = useState();
   const [filterLocation, setFilterLocation] = useState();
-  const store = useStore();
   let url = "http://localhost:7000/api/collaborateurs";
   const token = localStorage.getItem("token");
   const input = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const usersStore = useSelector(user_profiles);
-
+  /*les UseEffects qui permet un rafraichissement
+   efficace de la page en temps reel
+  /*Selon la condition*/
   useEffect(() => {
     if (token === null) {
       navigate("/");
@@ -45,6 +46,7 @@ export default function Profiles() {
     }
   }, [usersStore.users]);
 
+  // les functions permettant de filter l'affichage par rapport au filtre noms/villes
   function filters_name(name) {
     switch (name) {
       case "Names": {
@@ -85,10 +87,9 @@ export default function Profiles() {
 
         break;
       }
-     
     }
   }
-
+  // les functions permettant de filter l'affichage par rapport au filtre  category
   function filters_category(name) {
     switch (name) {
       case "null": {
@@ -153,7 +154,7 @@ export default function Profiles() {
   }
   let filter_search = "";
   let filter_category = "";
-
+  // function mettant sur écoute la barre de recherche et initialisement des conditions d'affichage
   function Search() {
     if (
       (input.current.value !== "" && setting === undefined) ||
@@ -173,7 +174,6 @@ export default function Profiles() {
     } else {
       switch (setting) {
         case "Technique":
-          
           setFilter(category);
           if (filterLocation === "Names") {
             filter_category = category.filter((profile) => {
@@ -191,7 +191,6 @@ export default function Profiles() {
           }
           break;
         case "Client":
-          
           setFilter(category);
           if (filterLocation === "Names") {
             filter_category = category.filter((profile) => {
@@ -209,7 +208,6 @@ export default function Profiles() {
           }
           break;
         case "Marketing":
-          
           setFilter(category);
           if (filterLocation === "Names") {
             filter_category = category.filter((profile) => {
