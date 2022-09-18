@@ -99,15 +99,12 @@ export default function SettingUser(props) {
   const isCorrect = () => {
     let span = document.getElementById("erreur");
 
-    if (values.password !== values.confirmPassword || values.password === "") {
-      span.innerHTML = "Erreur : les mots de passes ne concorde pas";
-    } else {
       modif_data_axios(url, token, values)
         .then(navigate("/home"))
         .catch(function (error) {
           span.innerHTML = "Information Manquante";
         });
-    }
+    
   };
 
   return (
