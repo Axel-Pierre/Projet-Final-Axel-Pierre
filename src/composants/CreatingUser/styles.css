@@ -2,17 +2,13 @@
 form
 {
     width: 100%;
-    
+    display:flex;
     justify-content: center;
 }
 .error{
     border: 2px solid red;
 }
 
-.control
-{
-    display:flex !important;
-}
 .civility_section
 {
     display:flex;

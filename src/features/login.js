@@ -25,12 +25,6 @@ export default function loginReducer(state = initialState,action){
         if(action.type === LOG){
          draft.username = action.payload.username;
          draft.password = action.payload.password;
-         if(state.status === 'pending'){
-            console.log('ok');
-           
-         }
-      
-       
          
          return
         }
