@@ -57,18 +57,24 @@ export async function delete_user_axios(id) {
  * */
 export async function create_user_axios(content) {
   let new_gender = "";
+  let photo_gender =""
+  let id_photo = Math.floor(Math.random() * 99);
   switch (content.civility) {
     case "Mme": {
       new_gender = "female";
+      photo_gender = 'women';
       break;
     }
     case "M": {
       new_gender = "male";
+      photo_gender= 'men';
       break;
     }
   }
+   
   let token = localStorage.getItem("token");
   let url = "http://localhost:7000/api/collaborateurs";
+   
   const res = await axios({
     method: "post",
     url: url,
@@ -88,7 +94,7 @@ export async function create_user_axios(content) {
       city: content.city,
       country: content.country,
       service: content.category,
-      photo: content.photo,
+      photo: `https://randomuser.me/api/portraits/${photo_gender}/${id_photo}.jpg`,
     },
   });
 }

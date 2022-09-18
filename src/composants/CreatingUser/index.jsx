@@ -11,13 +11,16 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import Form from "react-bootstrap/Form";
 import "./styles.css";
+
 import { create_user_axios } from "../../services/axios";
 import { useNavigate } from "react-router-dom";
 
+
 export default function CreatingUser() {
   const navigate = useNavigate();
-  let gender;
-  let id = 0;
+
+
+
   // les valeurs qui vont être envoyer dans l'api axios
   const [values, setValues] = React.useState({
     civility: "",
@@ -32,7 +35,7 @@ export default function CreatingUser() {
     country: "",
     telephone: "",
     birthday: "",
-    photo: `https://randomuser.me/api/portraits/${gender}/${id}.jpg`,
+    photo: "",
   });
 
   const handleChange = (prop) => (event) => {
@@ -45,26 +48,21 @@ export default function CreatingUser() {
       showPassword: !values.showPassword,
     });
   };
-
+  
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   // renvoi une span si une information est incorrect
+
   const isCorrect = () => {
     let span = document.getElementById("erreur");
 
     if (values.password !== values.confirmPassword || values.password === "") {
       span.innerHTML = "Erreur : les mots de passes ne concorde pas";
     } else {
-      if(values.civility === 'men'){
-          gender = 'men'
-          id = Math.floor(Math.random() * 99)
-      }else{
-        gender = 'women'
-        id = Math.floor(Math.random() * 99)
-      }
+      
       create_user_axios(values)
-        .then(navigate("/profiles"))
+        .then(navigate("/home"))
         .catch(function (error) {
           span.innerHTML = "Information Manquante";
         });
