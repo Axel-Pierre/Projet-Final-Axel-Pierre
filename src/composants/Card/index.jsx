@@ -44,7 +44,7 @@ let isAdmin = localStorage.getItem('admin');
 
   return (
     <Card style={{ width: '18rem' }}>
-      <div class='img_card'>
+      <div className='img_card'>
       <Card.Img width="100%" variant="top" src={img}/>
       </div>
       <Card.Body>
