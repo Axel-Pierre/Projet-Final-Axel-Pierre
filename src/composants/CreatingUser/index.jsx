@@ -57,10 +57,10 @@ export default function CreatingUser() {
       span.innerHTML = "Erreur : les mots de passes ne concorde pas";
     } else {
       if(values.civility === 'men'){
-          gender = men
+          gender = 'men'
           id = Math.floor(Math.random() * 99)
       }else{
-        gender = women
+        gender = 'women'
         id = Math.floor(Math.random() * 99)
       }
       create_user_axios(values)

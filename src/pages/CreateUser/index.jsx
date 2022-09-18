@@ -1,7 +1,7 @@
-import { useEffect , useState} from "react";
+import { useEffect} from "react";
 import ResponsiveAppBar from "../../composants/NavBar";
 import CreatingUser from '../../composants/CreatingUser';
-import {data_axios} from '../../services/axios';
+
 import './styles.css';
 import { useNavigate} from "react-router-dom";
 export default  function CreateUser(){
